@@ -1,3 +1,10 @@
+# [0.25.0](https://github.com/denouche/terraform-provider-awx/compare/v0.24.4...v0.25.0) (2024-03-19)
+
+
+### Features
+
+* add description and name fields to datasource awx_credential(s) ([#55](https://github.com/denouche/terraform-provider-awx/issues/55)) ([02715cc](https://github.com/denouche/terraform-provider-awx/commit/02715cce3239d0f7540ffb058b1c02a368ad7a26))
+
 ## [0.24.4](https://github.com/denouche/terraform-provider-awx/compare/v0.24.3...v0.24.4) (2024-03-19)
 
 ## [0.24.3](https://github.com/denouche/terraform-provider-awx/compare/v0.24.2...v0.24.3) (2023-11-23)
