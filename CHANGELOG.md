@@ -1,3 +1,10 @@
+# [0.26.0](https://github.com/denouche/terraform-provider-awx/compare/v0.25.2...v0.26.0) (2024-03-19)
+
+
+### Features
+
+* fix schedule definition and allow job template schedule import ([#56](https://github.com/denouche/terraform-provider-awx/issues/56)) ([219d7c3](https://github.com/denouche/terraform-provider-awx/commit/219d7c3acf83a875f9b008c8af7ebf8da25f7b42))
+
 ## [0.25.2](https://github.com/denouche/terraform-provider-awx/compare/v0.25.1...v0.25.2) (2024-03-19)
 
 
