@@ -13,7 +13,6 @@ organization_name: testorg
 EOL
 }
 ```
-
 */
 package awx
 
@@ -68,6 +67,9 @@ func resourceSchedule() *schema.Resource {
 				Description: "Extra data to be pass for the schedule (YAML format)",
 			},
 		},
+		Importer: &schema.ResourceImporter{
+			StateContext: schema.ImportStatePassthroughContext,
+		},
 	}
 }
 
@@ -76,15 +78,19 @@ func resourceScheduleCreate(ctx context.Context, d *schema.ResourceData, m inter
 	client := m.(*awx.AWX)
 	awxService := client.ScheduleService
 
-	result, err := awxService.Create(map[string]interface{}{
+	scheduleData := map[string]interface{}{
 		"name":                 d.Get("name").(string),
 		"rrule":                d.Get("rrule").(string),
 		"unified_job_template": d.Get("unified_job_template_id").(int),
 		"description":          d.Get("description").(string),
 		"enabled":              d.Get("enabled").(bool),
-		"inventory":            d.Get("inventory").(int),
 		"extra_data":           unmarshalYaml(d.Get("extra_data").(string)),
-	}, map[string]string{})
+	}
+	if _, ok := d.GetOk("inventory"); ok {
+		scheduleData["inventory"] = d.Get("inventory").(int)
+	}
+
+	result, err := awxService.Create(scheduleData, map[string]string{})
 	if err != nil {
 		log.Printf("Fail to Create Schedule %v", err)
 		diags = append(diags, diag.Diagnostic{
@@ -114,15 +120,19 @@ func resourceScheduleUpdate(ctx context.Context, d *schema.ResourceData, m inter
 		return buildDiagNotFoundFail("schedule", id, err)
 	}
 
-	_, err = awxService.Update(id, map[string]interface{}{
+	scheduleData := map[string]interface{}{
 		"name":                 d.Get("name").(string),
 		"rrule":                d.Get("rrule").(string),
 		"unified_job_template": d.Get("unified_job_template_id").(int),
 		"description":          d.Get("description").(string),
 		"enabled":              d.Get("enabled").(bool),
-		"inventory":            d.Get("inventory").(int),
 		"extra_data":           unmarshalYaml(d.Get("extra_data").(string)),
-	}, map[string]string{})
+	}
+	if _, ok := d.GetOk("inventory"); ok {
+		scheduleData["inventory"] = d.Get("inventory").(int)
+	}
+
+	_, err = awxService.Update(id, scheduleData, map[string]string{})
 	if err != nil {
 		diags = append(diags, diag.Diagnostic{
 			Severity: diag.Error,
