@@ -1,3 +1,10 @@
+## [0.25.2](https://github.com/denouche/terraform-provider-awx/compare/v0.25.1...v0.25.2) (2024-03-19)
+
+
+### Bug Fixes
+
+* **resource_organization:** undefined attribut project_id [#63](https://github.com/denouche/terraform-provider-awx/issues/63) ([#64](https://github.com/denouche/terraform-provider-awx/issues/64)) ([6276aa1](https://github.com/denouche/terraform-provider-awx/commit/6276aa15ec5ed06a300b90807acdd912747e04bd))
+
 ## [0.25.1](https://github.com/denouche/terraform-provider-awx/compare/v0.25.0...v0.25.1) (2024-03-19)
 
 
