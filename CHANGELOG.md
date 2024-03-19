@@ -1,3 +1,10 @@
+## [0.25.1](https://github.com/denouche/terraform-provider-awx/compare/v0.25.0...v0.25.1) (2024-03-19)
+
+
+### Bug Fixes
+
+* **resource_job_template_launch:** rename inventory to inventory_id and add support for yaml variables ([#59](https://github.com/denouche/terraform-provider-awx/issues/59)) ([6c4f141](https://github.com/denouche/terraform-provider-awx/commit/6c4f141f52338e51a89ab42c0c4858fc006052df))
+
 # [0.25.0](https://github.com/denouche/terraform-provider-awx/compare/v0.24.4...v0.25.0) (2024-03-19)
 
 
