@@ -27,6 +27,7 @@ import (
 	"fmt"
 	"log"
 	"strconv"
+	"time"
 
 	awx "github.com/denouche/goawx/client"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
@@ -209,6 +210,24 @@ func resourceJobTemplateCreate(ctx context.Context, d *schema.ResourceData, m in
 	var diags diag.Diagnostics
 	client := m.(*awx.AWX)
 	awxService := client.JobTemplateService
+
+	err := nil
+	projectUpdateRetry := 5
+
+	err = client.ProjectUpdatesService.ProjectUpdateGet(d.Get("project_id").(int))
+
+	if err != nil {
+		log.Printf("Get Update Projects err: %s", err)
+		while (err != nil) {
+			err = client.ProjectUpdatesService.ProjectUpdateGet(d.Get("project_id").(int))
+			projectUpdateRetry--
+			time.Sleep(projectUpdateRetry * time.Second)
+			if (projectUpdateRetry == 0) {
+				log.Fatalf("Project update err: %s", err)
+				break
+			}
+		}
+	}
 
 	result, err := awxService.CreateJobTemplate(map[string]interface{}{
 		"name":                     d.Get("name").(string),
